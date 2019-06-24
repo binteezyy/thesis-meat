@@ -1,0 +1,14 @@
+thesis_env/
+*db.sqlite3
+
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+*migrations*
+meat_analyzer/db.sqlite3
+*settings.py
+
+.env
