@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Home | Meat Analyzer
+{% endblock title %}
+
+
+
+{% block content %}
+{% for sample in samples %}
+<div class="container bg-white p-3 mt-4">
+    <div class="list-group">
+        <a href="{% url 'meat_view' sample.mid %}"
+            class="list-group-item list-group-item-action list-group-item-warning">
+            <div class="strong h2"> Sample meat #{{sample.mid}} </div>
+            <div class="text-muted"> {{sample.date_taken}} </div>
+        </a>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}

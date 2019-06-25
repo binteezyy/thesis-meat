@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+View | Meat Analyzer
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="container bg-white animated bounceInLeft p-3 mt-4">
+    <div class="card border-0 bg-white mt-2" name="scorecard">
+        <div class="card-body">
+            <h4 class="card-title"> Meat Sanitation Analyzer </h4>
+            <h6 class="card-subtitle mb-2 text-danger">Polytechnic University of the Philippines</h6>
+        </div>
+    </div>
+    <div class="container">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="thead-dark text-center h5">
+                <tr>
+                    <th>R</th>
+                    <th>G</th>
+                    <th>B</th>
+                    <th>Pixels</th>
+                    <th>Color</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for color in colors %}
+                <tr class="h6 text-center">
+                    <td style="width: 20%;">
+                        {{ color.code_red }}
+                    </td>
+                    <td style="width: 20%;">
+                        {{ color.code_green }}
+                    </td>
+                    <td style="width: 20%;">
+                        {{ color.code_blue}}
+                    </td>
+                    <td style="width: 20%;">
+                        {{ color.pixels }}
+                    </td>
+                    <td style="background-color: rgb({{color.code_red}}, {{color.code_green}}, {{color.code_blue}})">
+
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <th>
+                        Gas value:
+                    </th>
+                    <td colspan="4">
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <img src='{{ meat_photo }}' class="img-fluid" height="560" width="560" />
+        <div name="#" class="h3">
+            Total No. of Pixels:
+            <text name="#" class="#"> {{sample_meat.pixel_total}} </text>
+        </div>
+        <div>
+            <button class=" btn btn-primary submit" type="submit" id="submit-btn" value="submit">Submit</button>
+        </div>
+    </div>
+</div>
+{% endblock content %}
