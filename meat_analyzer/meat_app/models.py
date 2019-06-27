@@ -10,13 +10,13 @@ class Red(models.Model):
         return str(self.intensity)
 
 class Blue(models.Model):
-    intensity = models. IntegerField()
+    intensity = models.IntegerField()
 
     def __str__(self):
         return str(self.intensity)
 
 class Green(models.Model):
-    intensity = models. IntegerField()
+    intensity = models.IntegerField()
 
     def __str__(self):
         return str(self.intensity)
@@ -41,13 +41,13 @@ class ColorCode(models.Model):
 
 class SampleMeat(models.Model):
     mid = models.IntegerField(unique=True)
-    color = models.ManyToManyField(ColorCode)
+    color = models.ManyToManyField(ColorCode, blank=True)
     pixel_total = models.IntegerField(null=True)
     date_taken = models.DateTimeField()
     photo = models.FileField(upload_to=settings.IMG_DIR, null=True, blank=True, max_length=500)
 
     class Meta:
-        ordering = ['date_taken']
+        ordering = ['-date_taken']
 
     def __str__(self):
         return str(self.date_taken)
