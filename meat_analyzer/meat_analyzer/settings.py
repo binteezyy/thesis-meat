@@ -14,8 +14,10 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-IMG_DIR = os.path.abspath(os.path.join(BASE_DIR, '../meat_analyzer/meat_app/static/images/meat'))
+IMG_DIR = os.path.abspath(os.path.join(
+    BASE_DIR, '../meat_analyzer/meat_app/static/images/meat'))
 PHOTO_MEAT_DIR = ('../static/images/meat/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'meat_analyzer/meat_app/static/images/')
 
 
 # Quick-start development settings - unsuitable for production
