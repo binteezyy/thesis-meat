@@ -6,9 +6,9 @@ thesis_env/
 *.pot
 *.pyc
 __pycache__/
-local_settings.py
+# local_settings.py
 *migrations*
 meat_analyzer/db.sqlite3
-*settings.py
+# *settings.py
 
 .env

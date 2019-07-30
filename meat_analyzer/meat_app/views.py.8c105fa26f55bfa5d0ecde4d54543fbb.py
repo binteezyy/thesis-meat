@@ -14,7 +14,6 @@ from django.core import files
 
 from .models import *
 
-
 def index(request):
     # img_path = os.path.join(settings.IMG_DIR, 'gameboy.png')
     # colors, pixel_total = extcolors.extract(img_path)
@@ -30,36 +29,30 @@ def index(request):
 #     filename = "%s.%s" % (,ext)
 #     return os.path.join(settings.IMG_DIR, filename)
 
-
 def meat_view(request, mid):
     sample_meat = SampleMeat.objects.get(mid=mid)
     colors = sample_meat.color.all()
-    meat_photo = settings.PHOTO_MEAT_DIR + \
-        str(sample_meat.photo).split('/')[-1]
-
+    meat_photo = settings.PHOTO_MEAT_DIR + str(sample_meat.photo).split('/')[-1]
     context = {
         "colors": colors,
         "sample_meat": sample_meat,
-        "meat_photo": meat_photo
+        "meat_photo": meat_photo,
     }
-
+    
     return render(request, 'tables.html', context)
-
 
 def add_data(request):
     img_path = os.path.join(settings.IMG_DIR, 'gameboy.png')
     colors, pixel_total = extcolors.extract(img_path)
     date_time = datetime.datetime.now()
 
-    mid = int(str(date_time.year)+str(date_time.month)+str(date_time.day) +
-              str(date_time.hour)+str(date_time.minute)+str(date_time.second))
-    new_sample = SampleMeat(mid=mid, pixel_total=pixel_total,
-                            date_taken=datetime.datetime.now(),)
+    mid = int(str(date_time.year)+str(date_time.month)+str(date_time.day)+str(date_time.hour)+str(date_time.minute)+str(date_time.second))
+    new_sample = SampleMeat(mid=mid, pixel_total=pixel_total, date_taken=datetime.datetime.now(),)
     new_sample.save()
 
     # request = requests.get(img_path, stream=True)
     # file_name = img_path.split('\\')[-1]
-
+    
     # lf = tempfile.NamedTemporaryFile()
     # for block in request.iter_content(1024 * 8):
     #     if not block:
@@ -88,7 +81,7 @@ def add_data(request):
             add_B = Blue(intensity=color_code[2])
             add_B.save()
             new_B = Blue.objects.get(intensity=color_code[2])
-
+        
         try:
             new_pixel_count = PixelCount.objects.get(count=pixel_count)
         except PixelCount.DoesNotExist:
@@ -97,16 +90,13 @@ def add_data(request):
             new_pixel_count = PixelCount.objects.get(count=pixel_count)
 
         try:
-            new_color_code = ColorCode.objects.get(
-                code_red=new_R, code_green=new_G, code_blue=new_B, pixels=new_pixel_count)
+            new_color_code = ColorCode.objects.get(code_red=new_R, code_green=new_G, code_blue=new_B, pixels=new_pixel_count)
         except ColorCode.DoesNotExist:
-            add_color_code = ColorCode(
-                code_red=new_R, code_green=new_G, code_blue=new_B, pixels=new_pixel_count)
+            add_color_code = ColorCode(code_red=new_R, code_green=new_G, code_blue=new_B, pixels=new_pixel_count)
             add_color_code.save()
-            new_color_code = ColorCode.objects.get(
-                code_red=new_R, code_green=new_G, code_blue=new_B, pixels=new_pixel_count)
+            new_color_code = ColorCode.objects.get(code_red=new_R, code_green=new_G, code_blue=new_B, pixels=new_pixel_count)
 
         new_sample = SampleMeat.objects.get(mid=mid)
         new_sample.color.add(new_color_code)
-
+    
     return HttpResponse("OK")
