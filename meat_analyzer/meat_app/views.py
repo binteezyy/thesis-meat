@@ -54,7 +54,7 @@ def add_data(request):
     mid = int(str(date_time.year)+str(date_time.month)+str(date_time.day) +
               str(date_time.hour)+str(date_time.minute)+str(date_time.second))
     new_sample = SampleMeat(mid=mid, pixel_total=pixel_total,
-                            date_taken=datetime.datetime.now(),)
+                            date_taken=datetime.datetime.now())
     new_sample.save()
 
     # request = requests.get(img_path, stream=True)
@@ -67,7 +67,11 @@ def add_data(request):
     #     lf.write(block)
 
     # new_sample = SampleMeat.objects.get(mid=mid)
-    # new_sample.photo.save((str(file_name) + mid), files.File(lf))
+    # new_sample.photo.save((str(file_name.split('.')[-2]) + str(mid)) + '.png', files.File((open(img_path), 'rb')).read())
+    # new_sample.save()
+    # new_sample = SampleMeat.objects.get(mid=mid)
+    # new_sample.photo = 'meat/gameboy.png'
+    # new_sample.save()
 
     for color_code, pixel_count in colors:
         try:

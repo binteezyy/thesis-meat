@@ -11,4 +11,4 @@ __pycache__/
 meat_analyzer/db.sqlite3
 # *settings.py
 
-.env
+env/

@@ -35,11 +35,7 @@ Analyzer {% endblock title %} {% block content %}
           <td style="width: 20%;">
             {{ color.pixels }}
           </td>
-          <td
-            style="background-color: rgb({{ color.code_red }}, {{
-              color.code_green
-            }}, {{ color.code_blue }})"
-          ></td>
+          <td style="background-color: rgb({{ color.code_red }}, {{ color.code_green }}, {{ color.code_blue }})"></td>
         </tr>
         {% endfor %}
         <tr>
@@ -55,16 +51,11 @@ Analyzer {% endblock title %} {% block content %}
       Total No. of Pixels:
       <text name="#" class="#"> {{ sample_meat.pixel_total }} </text>
     </div>
-    <div>
-      <button
-        class=" btn btn-primary submit"
-        type="submit"
-        id="submit-btn"
-        value="submit"
-      >
+    <!-- <div>
+      <button class=" btn btn-primary submit" type="submit" id="submit-btn" value="submit">
         Submit
       </button>
-    </div>
+    </div> -->
   </div>
 </div>
 {% endblock content %}

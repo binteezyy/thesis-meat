@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMG_DIR = os.path.abspath(os.path.join(
     BASE_DIR, '../meat_analyzer/meat_app/static/images/meat'))
 PHOTO_MEAT_DIR = ('../static/images/meat/')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'meat_analyzer/meat_app/static/images/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'meat_app/static/images/')
 
 
 # Quick-start development settings - unsuitable for production
