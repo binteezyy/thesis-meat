@@ -1,8 +1,9 @@
 import extcolors
 import sys
 
-colors, pixel_total = extcolors.extract("gameboy.png")
-
+print("start")
+colors, pixel_total = extcolors.extract("/home/pi/thesis-meat/meat_analyzer/meat_app/static/images/meat/colorgrid.gif")
+print("extracted")
 # extcolors.image_result(colors, 150, "gameboy.png")
 
 

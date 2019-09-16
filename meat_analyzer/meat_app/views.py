@@ -46,17 +46,44 @@ def meat_view(request, mid):
     return render(request, 'tables.html', context)
 
 
-def add_data(request):
-    img_path = os.path.join(settings.IMG_DIR, 'gameboy.png')
-    colors, pixel_total = extcolors.extract(img_path)
-    date_time = datetime.datetime.now()
+import serial
+import os
+import time
+counter=0
 
+ser = serial.Serial(
+port='/dev/ttyUSB0',
+baudrate = 9600,
+timeout=0.1,
+writeTimeout=0.1,
+bytesize=serial.EIGHTBITS,
+parity=serial.PARITY_NONE,
+stopbits=serial.STOPBITS_ONE,
+xonxoff=False,
+rtscts=False,
+dsrdtr=False
+)
+counter=0
+ser.close()
+ser.open()
+ser.flushInput()
+ser.flushOutput()
+def add_data(request):
+    # img_path = os.path.join(settings.IMG_DIR, 'gameboy.png')
+    date_time = datetime.datetime.now()
     mid = int(str(date_time.year)+str(date_time.month)+str(date_time.day) +
               str(date_time.hour)+str(date_time.minute)+str(date_time.second))
-    new_sample = SampleMeat(mid=mid, pixel_total=pixel_total,
-                            date_taken=datetime.datetime.now())
+    
+    new_sample = SampleMeat(mid=mid, date_taken=date_time)
     new_sample.save()
 
+    img_save = 'sample' + str(mid) + '.jpg'
+    img_path = os.path.join(settings.IMG_DIR, img_save)
+    os.system("fswebcam -r 320x240 --png --no-banner " + img_path + " -S 24")
+    print("captured" + img_path)
+    colors, pixel_total = extcolors.extract(img_path)
+    print("extracted")
+    
     # request = requests.get(img_path, stream=True)
     # file_name = img_path.split('\\')[-1]
 
@@ -69,9 +96,12 @@ def add_data(request):
     # new_sample = SampleMeat.objects.get(mid=mid)
     # new_sample.photo.save((str(file_name.split('.')[-2]) + str(mid)) + '.png', files.File((open(img_path), 'rb')).read())
     # new_sample.save()
-    # new_sample = SampleMeat.objects.get(mid=mid)
-    # new_sample.photo = 'meat/gameboy.png'
-    # new_sample.save()
+
+    
+    new_sample = SampleMeat.objects.get(mid=mid)
+    new_sample.pixel_total = pixel_total
+    new_sample.photo = 'meat/' + img_save
+    new_sample.save()
 
     for color_code, pixel_count in colors:
         try:
